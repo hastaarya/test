@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ekagata Consulting - Accounting & Tax Solutions</title>
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      color: #4caf50;
+      outline: none;
+    }
+    header {
+      background: linear-gradient(135deg, #1b5e20 0%, #388e3c 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 2rem;
+      position: relative;
+      color: white;
+      text-align: left;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: -15%;
+      right: -20%;
+      height: 150%;
+      width: 200%;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(255 255 255 / 0.1), transparent 50%);
+      z-index: 0;
+      transform: rotate(25deg);
+    }
+    header .container {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+    header h1 {
+      font-weight: 900;
+      font-size: 3.8rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.4rem;
+      color: #d4d4d4;
+      margin-bottom: 2.4rem;
+      max-width: 550px;
+      font-weight: 600;
+    }
+    header button.cta-btn {
+      background-color: #4caf50;
+      border: none;
+      border-radius: 40px;
+      padding: 1rem 3rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #121212;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgb(76 175 80 / 0.8);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    header button.cta-btn:hover,
+    header button.cta-btn:focus {
+      background-color: #378e2e;
+      box-shadow: 0 10px 30px rgb(55 142 46 / 1);
+      outline: none;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #1e1e1ecc;
+      backdrop-filter: saturate(180%) blur(20px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      z-index: 9999;
+      color: #e0e0e0;
+      user-select: none;
+    }
+    nav .logo {
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #4caf50;
+      cursor: default;
+    }
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      gap: 1.8rem;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: #cfcfcf;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a:focus {
+      background-color: #4caf50;
+      color: #121212;
+      outline: none;
+    }
+    /* Dropdown */
+    .dropdown-toggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 38px;
+      left: 0;
+      background: #282828;
+      min-width: 220px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 1500;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 18px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #dcecc8;
+      border-radius: 6px;
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus {
+      background-color: #4caf50;
+      color: #121212;
+      outline: none;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 6rem 1.5rem 4rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      user-select: none;
+    }
+    section {
+      margin-bottom: 4rem;
+      background-color: #222;
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.8);
+      scroll-margin-top: 70px; /* offset for fixed nav height */
+    }
+    h2.section-title {
+      font-size: 2.5rem;
+      color: #8bc34a;
+      letter-spacing: 1.2px;
+      margin-bottom: 1.5rem;
+      border-left: 6px solid #4caf50;
+      padding-left: 15px;
+    }
+    p, li {
+      color: #cfd8dc;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    ul {
+      padding-left: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    ul ul {
+      list-style-type: lower-alpha;
+      color: #dcedc8;
+    }
+    ul ul li {
+      margin-left: 1rem;
+    }
+    /* Contact */
+    #contact address {
+      font-style: normal;
+      color: #cfd8dc;
+      line-height: 1.5;
+      user-select: text;
+    }
+    #contact address a {
+      color: #aed581;
+      font-weight: 700;
+    }
+    #contact address a:hover,
+    #contact address a:focus {
+      color: #7cb342;
+      text-decoration: underline;
+      outline: none;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #181818;
+      color: #4caf50;
+      font-weight: 700;
+      font-size: 0.875rem;
+      user-select: none;
+      margin-top: auto;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.8rem;
+      }
+      header p {
+        font-size: 1.2rem;
+        max-width: 100%;
+      }
+      main {
+        padding: 5rem 1rem 3rem;
+      }
+      nav ul {
+        gap: 1rem;
+      }
+    }
+    @media (max-width: 400px) {
+      header h1 {
+        font-size: 2.4rem;
+      }
+      header p {
+        font-size: 1.1rem;
+      }
+      nav ul {
+        gap: 0.6rem;
+      }
+      nav a {
+        font-size: 0.9rem;
+        padding: 5px 8px;
+      }
+      .dropdown-menu {
+        min-width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Primary navigation">
+    <div class="logo" tabindex="0">Ekagata Consulting</div>
+    <ul role="menubar">
+      <li role="none"><a role="menuitem" href="#home" tabindex="0">Home</a></li>
+      <li role="none"><a role="menuitem" href="#about" tabindex="0">About Us</a></li>
+      <li role="none" class="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false">
+        <a href="#services" class="dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">Our Services &#x25BE;</a>
+        <div class="dropdown-menu" role="menu" aria-label="Our Services submenu">
+          <a href="#tax-compliance" role="menuitem" tabindex="0">Tax Compliance</a>
+          <a href="#accounting-service" role="menuitem" tabindex="0">Accounting Service</a>
+          <a href="#tax-audit-assistance" role="menuitem" tabindex="0">Tax Audit Assistance</a>
+          <a href="#tax-litigation" role="menuitem" tabindex="0">Tax Litigation</a>
+        </div>
+      </li>
+      <li role="none"><a role="menuitem" href="#articles" tabindex="0">Articles & Regulations</a></li>
+      <li role="none"><a role="menuitem" href="#contact" tabindex="0">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <header id="home" role="banner" tabindex="0">
+    <div class="container">
+      <h1>Ekagata Consulting</h1>
+      <p>Expert accounting, tax, and consulting solutions to streamline your business and minimize tax burden.</p>
+      <button class="cta-btn" aria-label="Scroll to contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">
+        Get In Touch
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" aria-labelledby="about-title" tabindex="0">
+      <h2 id="about-title" class="section-title">About Us</h2>
+      <p>Ekagata Consulting is a consulting firm engaging in accounting, tax, and consulting services registered with the Ministry of Finance of the Republic of Indonesia. We possess expertise in overseeing tax compliance and providing assistance in resolving challenges encountered by taxpayers.</p>
+      <p>Our Partners are licensed with Certified Indonesia Tax Consultant, Tax Attorney licensed holder, and Chartered Accountant. They are also a member of the Indonesian Tax Consultants Association (IKPI) and Institute of Indonesia Chartered Accountants (IAI). With more than seven years of experience working in a multinational public accounting firm known as Big Four, we deliver a high standard deliverable to our clients.</p>
+      <p>We provide your company with solutions to minimize your tax burden while ensuring tax compliance and audit assurance. Our services cater to clients across various industries, including manufacturing, trading, construction, digital advertising agencies, and educational foundations.</p>
+    </section>
+
+    <section id="services" aria-labelledby="services-title" tabindex="0">
+      <h2 id="services-title" class="section-title">Our Services</h2>
+
+      <h3 id="tax-compliance">Tax Compliance (Monthly and Annual Tax Return Preparation)</h3>
+      <p>With the growing pace of tax enforcement, compliance to tax regulation is more important than ever. We assist our clients to comply with the prevailing tax regulations by preparing the monthly tax compliance and annual tax compliance. Our tax compliance service covers:</p>
+      <ul>
+        <li>Annual Tax Preparation
+          <ul>
+            <li>Preparation of Annual Income Tax Returns for Companies</li>
+            <li>Preparation of Annual Income Tax Returns for Individuals</li>
+          </ul>
+        </li>
+        <li>Monthly compliance
+          <ul>
+            <li>Article 21/26 Withholding Taxes (PPh 21/26)</li>
+            <li>Article 23/26 Withholding Taxes (PPh 23/26)</li>
+            <li>Article 4(2) Withholding Taxes (PPh 4 ayat (2) Final)</li>
+            <li>Article 15 Withholding Taxes (PPh 15)</li>
+            <li>Prepaid Tax Article 25 Instalment (PPh 25)</li>
+            <li>Value Added Tax (PPN)</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3 id="accounting-service">Accounting Service</h3>
+      <p>Our accounting services cater to clients requiring general accounting and financial planning assistance. Our professionals assist with initial accounting system setup and controls, maintain accounting records, and prepare monthly financial statements.</p>
+
+      <h3 id="tax-audit-assistance">Assistance in Dealing with Tax Audits</h3>
+      <p>The Indonesia Tax Office (ITO) may perform audits to test taxation obligations, often resulting in significant tax adjustments. We assist you in understanding and defending against these adjustments to minimize tax consequences.</p>
+
+      <h3 id="tax-litigation">Tax Litigation (Objection, Appeal and Reconsideration Process)</h3>
+      <p>If you disagree with a tax auditor’s adjustments, you may object to the Regional Tax Office, appeal to the Tax Court, and request reconsideration in the Supreme Court. We guide you through the process with proper argument drafting, submission, discussions, and attendance at tribunals.</p>
+    </section>
+
+    <section id="articles" aria-labelledby="articles-title" tabindex="0">
+      <h2 id="articles-title" class="section-title">Articles & Regulations</h2>
+      <p>Relevant accounting, tax, and consulting articles and regulations will be regularly updated here to keep you informed of the latest developments.</p>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title" tabindex="0">
+      <h2 id="contact-title" class="section-title">Contact Us</h2>
+      <address>
+        <strong>Ekagata Consulting</strong><br />
+        Jl. Taman Palem Lestari, Ruko Pelangi Blok A No.3,<br />
+        Cengkareng Barat 11730<br />
+        Jakarta Barat, Indonesia<br /><br />
+        Website: <a href="https://www.ekagata.com" target="_blank" rel="noopener noreferrer">www.ekagata.com</a><br />
+        Tel: (021) 5595 8561 / 62<br />
+        HP: 0819-0862-0406<br /><br />
+        Follow us on Youtube: <a href="https://www.youtube.com/channel/UCekagata" target="_blank" rel="noopener noreferrer">Ekagata</a><br /><br />
+        General Inquiries: <a href="mailto:perwirahanjaya@gmail.com">perwirahanjaya@gmail.com</a>
+      </address>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    &copy; 2024 Ekagata Consulting. All Rights Reserved.
+  </footer>
+
+</body>
+</html>
